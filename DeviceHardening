@@ -1,0 +1,12 @@
+login block-for 30 attempts 3 within 15
+login on-failure log
+login on-success log every 3
+
+!
+interface [INTERFACE]
+ no ip redirects
+ no ip unreachables
+ no ip proxy-arp
+!
+
+TBC
