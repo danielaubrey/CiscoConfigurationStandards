@@ -1,0 +1,45 @@
+# Enable OSPF
+!
+feature ospf
+!
+
+# Global OSPF Configuration 
+!
+router ospf 1
+  router-id [LOOPBACK IP]
+  area 0.0.0.14 nssa default-information-originate
+  default-information originate
+  redistribute direct route-map OSPF-Direct-Connected
+  log-adjacency-changes
+!
+
+# Redistribute loopback IPs
+!
+route-map OSPF-Direct-Connected permit 10
+  match ip address prefix-list OSPF-Direct-Prefix
+  redistribute direct route-map OSPF-Direct-Connected
+  
+ip prefix-list OSPF-Direct-Prefix seq 10 permit [LOOPBACK IP]/32
+ip prefix-list OSPF-Direct-Prefix seq 15 permit [LOOPBACK IP]/32 
+!
+
+# Interface Configuration
+
+interface [INTERFACE NAME]
+  ip ospf authentication message-digest
+  ip ospf message-digest-key 1 [KEY]
+  ip ospf network point-to-point
+  ip router ospf 1 area 0.0.0.0
+
+interface [INTERFACE NAME]
+  ip ospf authentication message-digest
+  ip ospf message-digest-key 1 [KEY]
+  ip router ospf 1 area 0.0.0.5
+
+
+
+# Verification
+show ip ospf neighbors
+show ip ospf event-history adjacency
+ show ip ospf interface [INTERFACE NAME]
+
