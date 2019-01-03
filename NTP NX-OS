@@ -1,0 +1,16 @@
+ntp server [NTP SERVER IP]
+ntp source-interface [INTERFACE NAME]
+ntp authenticate
+ntp authentication-key [KEY N#] md5 [KEY]
+ntp trusted-key [KEY N#]
+ntp logging
+
+
+# Verification
+
+Total peers : 1
+* - selected for sync, + -  peer mode(active),
+- - peer mode(passive), = - polled in client mode
+    remote               local                 st   poll   reach delay   vrf
+-------------------------------------------------------------------------------
+   *X.X.X.X            X.X.X.X                  3   64     377   0.00146 default
