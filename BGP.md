@@ -1,3 +1,5 @@
+Basic BPG Configuration
+
 ```
 router bgp [AS]
  bgp router-id [LOOPBACK_IP]
